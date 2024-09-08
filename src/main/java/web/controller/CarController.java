@@ -4,14 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.model.Car;
-import web.model.CarService;
-import web.model.CarServiceImpl;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import web.service.CarService;
+import web.service.CarServiceImpl;
 
 @ComponentScan
 @Controller
@@ -29,6 +24,4 @@ public class CarController {
         model.addAttribute("cars", carService.carsCount(count));
         return "cars";
     }
-
-
 }

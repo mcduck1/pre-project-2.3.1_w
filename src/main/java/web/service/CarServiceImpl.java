@@ -1,6 +1,7 @@
-package web.model;
+package web.service;
 
 import org.springframework.stereotype.Component;
+import web.model.Car;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,9 @@ public class CarServiceImpl implements CarService {
         carList.add(new Car("Tesla", "Model S", "Black"));
         carList.add(new Car("Chevrolet", "Impala", "Silver"));
 
-        if (number > carList.size()) {
+        if (number <= 0) {
+            return new ArrayList<>();
+        } else if (number > carList.size()) {
             return carList;
         }
         return carList.subList(0, number);

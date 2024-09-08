@@ -1,24 +1,59 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import web.model.User;
+import web.service.UserServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 public class HelloController {
 
-	@GetMapping(value = "/")
-	public String printWelcome(ModelMap model) {
-		List<String> messages = new ArrayList<>();
-		messages.add("Hello!");
-		messages.add("I'm Spring MVC application");
-		messages.add("5.2.0 version by sep'19 ");
-		model.addAttribute("messages", messages);
-		return "index";
+	private UserServiceImpl userServiceImpl;
+
+	@Autowired
+	public HelloController(UserServiceImpl userServiceImpl) {
+		this.userServiceImpl = userServiceImpl;
 	}
-	
+
+	@GetMapping(value = "/")
+	public String allUsers(Model model) {
+		List<User> userList = userServiceImpl.allUsers();
+		model.addAttribute("users", userList);
+		return "user";
+	}
+
+	@GetMapping("/add")
+	public String addUser(@ModelAttribute("user") User user) {
+		return "add";
+	}
+
+	@PostMapping()
+	public String add(@ModelAttribute ("user") User user) {
+		userServiceImpl.add(user);
+		return "redirect:/";
+	}
+
+	@GetMapping("/edit/{id}")
+	public String editPage (Model model, @PathVariable("id") int id) {
+		model.addAttribute("user", userServiceImpl.getById(id));
+		return "edit";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String editUser(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+		userServiceImpl.edit(user);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable("id") int id) {
+		User userToBeDeleted = userServiceImpl.getById(id);
+		userServiceImpl.delete(userToBeDeleted);
+		return "redirect:/";
+	}
 }
