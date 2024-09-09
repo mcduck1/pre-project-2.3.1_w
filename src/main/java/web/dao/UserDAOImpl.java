@@ -1,21 +1,16 @@
 package web.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override
@@ -41,6 +36,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(User user) {
-//        entityManager.remove(getUserId(id));
+        entityManager.remove(user.getId());
     }
 }
