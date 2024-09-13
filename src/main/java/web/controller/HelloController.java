@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class HelloController {
 
-	private UserServiceImpl userServiceImpl;
+	private final UserServiceImpl userServiceImpl;
 
 	@Autowired
 	public HelloController(UserServiceImpl userServiceImpl) {
