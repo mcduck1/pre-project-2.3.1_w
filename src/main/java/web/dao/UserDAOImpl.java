@@ -14,17 +14,17 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    public void add(User users) {
-        entityManager.persist(users);
+    public void add(User user) {
+        entityManager.persist(user);
     }
 
     @Override
-    public void edit(User users) {
-        entityManager.merge(users);
+    public void edit(User user) {
+        entityManager.merge(user);
     }
 
     @Override
-    public List<User> allusers() {
+    public List<User> getAll() {
         return entityManager.createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
     }
@@ -35,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(User user) {
-        entityManager.remove(user.getId());
+    public void delete(int id){
+        entityManager.remove(getById(id));
     }
 }

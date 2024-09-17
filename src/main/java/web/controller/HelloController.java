@@ -22,7 +22,7 @@ public class HelloController {
 
 	@GetMapping(value = "/")
 	public String allUsers(Model model) {
-		List<User> userList = userServiceImpl.allUsers();
+		List<User> userList = userServiceImpl.getAll();
 		model.addAttribute("users", userList);
 		return "user";
 	}
@@ -52,8 +52,7 @@ public class HelloController {
 
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") int id) {
-		User userToBeDeleted = userServiceImpl.getById(id);
-		userServiceImpl.delete(userToBeDeleted);
+		userServiceImpl.delete(id);
 		return "redirect:/";
 	}
 }

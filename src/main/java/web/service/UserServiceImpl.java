@@ -12,18 +12,13 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO = new UserDAOImpl();
 
     @Override
-    public List<User> allUsers() {
-        return userDAO.allusers();
+    public List<User> getAll() {
+        return userDAO.getAll();
     }
 
     @Override
     public void add(User user) {
         userDAO.add(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        userDAO.delete(user);
     }
 
     @Override
@@ -34,5 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(int id) {
         return userDAO.getById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        userDAO.delete(id);
     }
 }
