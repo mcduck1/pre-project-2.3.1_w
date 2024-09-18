@@ -24,7 +24,7 @@ import static org.springframework.orm.hibernate5.SessionFactoryUtils.getDataSour
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan("web")
+@ComponentScan(basePackages ="web")
 public class AppConfig {
 
     @Autowired
